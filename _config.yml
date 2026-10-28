@@ -43,7 +43,7 @@ disqus-shortname: thedevslot
 # Name of the Author
 author-name: TheDevsLot
 # URL for the Image of the Author
-author-image:/assets/images/nandita-passport-new.jpg
+author-image: /assets/images/Nandita-passport-new.jpg
 # 60 Words About the Author
 author-about: Hi, I'm Nandita, a high school junior at South Brunswick High School in New Jersey. As a dedicated tech enthusiast, I love exploring innovative solutions and building projects that bring creative ideas to life through code.
 # URL to the Author's Profile (i.e., Github, Twitter, Stackoverflow, etc)
