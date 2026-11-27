@@ -1,140 +1,992 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nandita Kamalakannan | Portfolio & Resume</title>
-    <!-- Tailwind CSS for clean, professional styling -->
+    <title>Nandita Kamalakannan | Portfolio &amp; Resume</title>
+    <meta name="description" content="Personal portfolio of Nandita Kamalakannan, High School Junior and Aspiring Computer Science Student from South Brunswick High School, New Jersey.">
+
+    <!-- Google Fonts: Inter for crisp UI typography & JetBrains Mono for technical accents -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind Custom Palette & Typography Configuration -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        blush: '#fff5f7',
+                        plum: {
+                            950: '#1f1218',
+                            900: '#331d27',
+                            700: '#5c434e',
+                            500: '#8a6b79',
+                        },
+                    },
+                }
+            }
+        };
+    </script>
+
+    <!-- Custom Styles for Ambient Pink Blobs, Glowing Timeline Dots & Scroll Reveal -->
+    <style>
+        /* Soft pink & rose ambient radial gradient blobs in the background */
+        .ambient-pink-bg {
+            background-image:
+                    radial-gradient(circle at 15% 12%, rgba(244, 114, 182, 0.16), transparent 42%),
+                    radial-gradient(circle at 85% 18%, rgba(251, 113, 133, 0.14), transparent 40%),
+                    radial-gradient(circle at 50% 65%, rgba(249, 168, 212, 0.12), transparent 50%);
+        }
+
+        /* Subtle rose glow for timeline dots */
+        .timeline-dot-glow {
+            box-shadow: 0 0 0 4px rgba(244, 114, 182, 0.18), 0 0 12px rgba(244, 63, 94, 0.35);
+        }
+
+        /* Smooth scroll-reveal animation triggered by IntersectionObserver */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom sleek pink scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #fff5f7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(244, 114, 182, 0.4);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(236, 72, 153, 0.65);
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans antialiased leading-relaxed">
+<body class="bg-blush text-plum-700 font-sans antialiased selection:bg-pink-200 selection:text-plum-950 overflow-x-hidden relative">
 
-<!-- Main Container -->
-<main class="max-w-4xl mx-auto px-6 py-12 bg-white shadow-sm my-10 rounded-2xl border border-gray-100">
+<!-- Ambient Soft Pink & Rose Background Blobs -->
+<div aria-hidden="true" class="pointer-events-none fixed inset-0 ambient-pink-bg -z-10"></div>
 
-    <!-- Header Section / Bio -->
-    <header class="border-b border-gray-200 pb-8 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
-        <div>
-            <h1 class="text-3xl font-bold text-gray-900 tracking-tight">Nandita Kamalakannan</h1>
-            <p class="text-lg text-blue-600 font-medium mt-1">High School Junior | Aspiring Computer Science Student</p>
-            <p class="text-sm text-gray-600 mt-2 max-w-xl">
+<!-- =========================================================
+     STICKY GLASSMORPHIC NAVIGATION BAR
+     Links: Education, Experience, Projects, Skills, Contact
+     ========================================================= -->
+<header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-pink-100">
+    <nav class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between" aria-label="Main Navigation">
+        <!-- Brand Name -->
+        <a href="#top" class="group flex items-center gap-1 focus:outline-none">
+                <span class="text-lg sm:text-xl font-bold tracking-tight text-plum-950">
+                    Nandita<span class="bg-gradient-to-r from-pink-500 to-rose-500 bg-clip-text text-transparent">.</span>
+                </span>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:flex items-center gap-1 lg:gap-2">
+            <a href="#education" data-section="education"
+               class="nav-link px-3.5 py-2 rounded-xl text-sm font-medium text-plum-700 hover:text-pink-600 hover:bg-pink-50/80 transition-all">
+                <span class="font-mono text-xs text-pink-500 mr-1">01.</span>Education
+            </a>
+            <a href="#experience" data-section="experience"
+               class="nav-link px-3.5 py-2 rounded-xl text-sm font-medium text-plum-700 hover:text-pink-600 hover:bg-pink-50/80 transition-all">
+                <span class="font-mono text-xs text-pink-500 mr-1">02.</span>Experience
+            </a>
+            <a href="#projects" data-section="projects"
+               class="nav-link px-3.5 py-2 rounded-xl text-sm font-medium text-plum-700 hover:text-pink-600 hover:bg-pink-50/80 transition-all">
+                <span class="font-mono text-xs text-pink-500 mr-1">03.</span>Projects
+            </a>
+            <a href="#skills" data-section="skills"
+               class="nav-link px-3.5 py-2 rounded-xl text-sm font-medium text-plum-700 hover:text-pink-600 hover:bg-pink-50/80 transition-all">
+                <span class="font-mono text-xs text-pink-500 mr-1">04.</span>Skills
+            </a>
+            <a href="#contact" data-section="contact"
+               class="nav-link px-3.5 py-2 rounded-xl text-sm font-medium text-plum-700 hover:text-pink-600 hover:bg-pink-50/80 transition-all">
+                <span class="font-mono text-xs text-pink-500 mr-1">05.</span>Contact
+            </a>
+        </div>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="mobile-menu-btn" type="button" aria-label="Open Navigation Menu" aria-expanded="false"
+                class="md:hidden p-2.5 rounded-xl bg-pink-50 text-plum-900 hover:text-pink-600 border border-pink-100 transition-colors">
+            <svg id="menu-open-icon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+            <svg id="menu-close-icon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </nav>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-pink-100 bg-white/95 backdrop-blur-lg">
+        <div class="px-4 py-4 space-y-1">
+            <a href="#education" class="mobile-nav-link block px-3.5 py-3 rounded-xl text-sm font-medium text-plum-900 hover:bg-pink-50 hover:text-pink-600 transition-colors">
+                <span class="font-mono text-xs text-pink-500 mr-2">01.</span>Education
+            </a>
+            <a href="#experience" class="mobile-nav-link block px-3.5 py-3 rounded-xl text-sm font-medium text-plum-900 hover:bg-pink-50 hover:text-pink-600 transition-colors">
+                <span class="font-mono text-xs text-pink-500 mr-2">02.</span>Experience
+            </a>
+            <a href="#projects" class="mobile-nav-link block px-3.5 py-3 rounded-xl text-sm font-medium text-plum-900 hover:bg-pink-50 hover:text-pink-600 transition-colors">
+                <span class="font-mono text-xs text-pink-500 mr-2">03.</span>Projects
+            </a>
+            <a href="#skills" class="mobile-nav-link block px-3.5 py-3 rounded-xl text-sm font-medium text-plum-900 hover:bg-pink-50 hover:text-pink-600 transition-colors">
+                <span class="font-mono text-xs text-pink-500 mr-2">04.</span>Skills
+            </a>
+            <a href="#contact" class="mobile-nav-link block px-3.5 py-3 rounded-xl text-sm font-medium text-plum-900 hover:bg-pink-50 hover:text-pink-600 transition-colors">
+                <span class="font-mono text-xs text-pink-500 mr-2">05.</span>Contact
+            </a>
+        </div>
+    </div>
+</header>
+
+<!-- =========================================================
+     MAIN CONTENT CONTAINER
+     ========================================================= -->
+<main id="top" class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- =====================================================
+         HERO / INTRODUCTION SECTION
+         ===================================================== -->
+    <section class="pt-16 pb-16 sm:pt-24 sm:pb-24">
+        <div class="max-w-3xl">
+            <!-- Soft Pink Status Pill Badge -->
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-100/80 border border-rose-200/80 text-rose-700 font-mono text-xs sm:text-sm mb-6 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 animate-pulse"></span>
+                South Brunswick, NJ &bull; Class of 2028
+            </div>
+
+            <!-- Large Bold Name with Subtle Pink-to-Rose Gradient Accent -->
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1] text-plum-950">
+                Nandita
+                <span class="bg-gradient-to-r from-pink-600 via-rose-500 to-pink-500 bg-clip-text text-transparent">
+                        Kamalakannan
+                    </span>
+            </h1>
+
+            <!-- Subtitle -->
+            <h2 class="mt-4 text-lg sm:text-2xl font-semibold tracking-tight text-plum-900">
+                High School Junior <span class="text-pink-400 mx-1">|</span> Aspiring Computer Science Student
+            </h2>
+
+            <!-- Short Bio -->
+            <p class="mt-5 text-base sm:text-lg text-plum-700 leading-relaxed max-w-2xl">
                 Passionate, research-driven student from South Brunswick High School, New Jersey, looking to build impactful tech tools and pursue computer science.
             </p>
-        </div>
-        <div class="text-sm text-gray-600 bg-gray-50 p-4 rounded-xl border border-gray-100 w-full sm:w-auto">
-            <p><strong>Location:</strong> South Brunswick, NJ</p>
-            <p><strong>Email:</strong> <a href="mailto:nanditakamalakannan@gmail.com" class="text-blue-500 hover:underline">nanditakamalakannan@gmail.com</a></p>
-            <p><strong>GitHub:</strong> <a href="https://github.com/nandita1-k" target="_blank" class="text-blue-500 hover:underline">github.com/nandita1-k</a></p>
-        </div>
-    </header>
 
-    <!-- Education & Coursework Section -->
-    <section class="mb-10">
-        <h2 class="text-xl font-bold text-gray-900 uppercase tracking-wider border-b-2 border-blue-500 pb-1 mb-4">Education</h2>
-        <div class="flex flex-col sm:flex-row justify-between items-baseline mb-2">
-            <h3 class="font-semibold text-gray-800 text-lg">South Brunswick High School, New Jersey</h3>
-            <span class="text-sm text-gray-500">Expected Graduation: June 2028</span>
-        </div>
-        <p class="text-sm text-gray-600 italic mb-3">High School Junior</p>
-        <div class="bg-gray-50 p-4 rounded-xl border border-gray-100 text-sm text-gray-700 space-y-2">
-            <p><strong>Relevant Coursework:</strong> AP Computer Science A, College Calculus, AP Physics, AP Microeconomics, Mobile App Development (Dual enrollment), Virtual Reality & Game Design (Dual enrollment)</p>
-        </div>
-    </section>
-
-    <!-- Technical Skills Section -->
-    <section class="mb-10">
-        <h2 class="text-xl font-bold text-gray-900 uppercase tracking-wider border-b-2 border-blue-500 pb-1 mb-4">Technical Skills</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-gray-700">
-            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                <p class="font-semibold text-gray-900 mb-1">Programming Languages</p>
-                <p>Java, Python, JavaScript, Java,HTML/CSS</p>
-            </div>
-            <div class="bg-gray-50 p-4 rounded-xl border border-gray-100">
-                <p class="font-semibold text-gray-900 mb-1">Tools & Frameworks</p>
-                <p>Git, GitHub, Android Studio</p>
+            <!-- Subtle Interactive Scroll Link Button -->
+            <div class="mt-8">
+                <a href="#education"
+                   class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/90 hover:bg-pink-50 text-rose-600 font-mono text-xs sm:text-sm font-medium border border-rose-200 shadow-sm hover:shadow-md hover:shadow-pink-500/10 transition-all group">
+                    <span>Explore Background</span>
+                    <span class="inline-block transition-transform duration-200 group-hover:translate-y-0.5">&darr;</span>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section class="mb-10">
-        <h2 class="text-xl font-bold text-gray-900 uppercase tracking-wider border-b-2 border-blue-500 pb-1 mb-4">Key Projects</h2>
-        <div class="space-y-6">
+    <!-- =====================================================
+         01. EDUCATION SECTION (#education)
+         ===================================================== -->
+    <section id="education" class="py-16 sm:py-20 scroll-mt-20 reveal">
+        <div class="mb-10">
+            <p class="font-mono text-xs sm:text-sm text-pink-600 font-medium mb-1">01. EDUCATION</p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-plum-950 tracking-tight">
+                Education &amp; Academic Record
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Main Education & Coursework Card -->
+            <div class="lg:col-span-2 p-6 sm:p-8 rounded-2xl bg-white/95 border border-pink-100 shadow-sm hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300">
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3 pb-5 border-b border-pink-100">
+                    <div>
+                        <h3 class="text-xl font-bold text-plum-950">
+                            South Brunswick High School, New Jersey
+                        </h3>
+                        <p class="text-sm text-rose-600 font-medium mt-1">
+                            High School Junior
+                        </p>
+                    </div>
+                    <span class="self-start inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-mono bg-pink-50 text-rose-700 border border-rose-200/80">
+                            Expected Graduation: June 2028
+                        </span>
+                </div>
+
+                <div class="mt-5">
+                    <p class="text-xs font-mono uppercase tracking-wider text-plum-500 mb-3">
+                        Relevant Coursework
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1.5 rounded-xl text-xs sm:text-sm bg-pink-50/90 text-plum-900 border border-pink-100 hover:border-rose-300 transition-colors">
+                                AP Computer Science A
+                            </span>
+                        <span class="px-3 py-1.5 rounded-xl text-xs sm:text-sm bg-pink-50/90 text-plum-900 border border-pink-100 hover:border-rose-300 transition-colors">
+                                College Calculus
+                            </span>
+                        <span class="px-3 py-1.5 rounded-xl text-xs sm:text-sm bg-pink-50/90 text-plum-900 border border-pink-100 hover:border-rose-300 transition-colors">
+                                AP Physics
+                            </span>
+                        <span class="px-3 py-1.5 rounded-xl text-xs sm:text-sm bg-pink-50/90 text-plum-900 border border-pink-100 hover:border-rose-300 transition-colors">
+                                AP Microeconomics
+                            </span>
+                        <span class="px-3 py-1.5 rounded-xl text-xs sm:text-sm bg-rose-50 text-rose-800 border border-rose-200/80 hover:border-rose-300 transition-colors">
+                                Mobile App Development (Dual enrollment)
+                            </span>
+                        <span class="px-3 py-1.5 rounded-xl text-xs sm:text-sm bg-rose-50 text-rose-800 border border-rose-200/80 hover:border-rose-300 transition-colors">
+                                Virtual Reality &amp; Game Design (Dual enrollment)
+                            </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STEM Academic Record Highlight Card -->
+            <div class="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-pink-50 via-white to-rose-50 border border-rose-200/80 flex flex-col justify-between shadow-sm hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300">
+                <div>
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-mono bg-gradient-to-r from-pink-500 to-rose-500 text-white mb-4 shadow-sm shadow-pink-500/20">
+                            STEM Academic Record
+                        </span>
+                    <h3 class="text-lg font-bold text-plum-950">
+                        Advanced Placement Highlights
+                    </h3>
+                    <p class="mt-2 text-sm text-plum-700 leading-relaxed">
+                        Rigorous advanced placement science and math courses.
+                    </p>
+                </div>
+
+                <div class="mt-6 space-y-3">
+                    <div class="flex items-center justify-between p-3.5 rounded-xl bg-white border border-pink-100 shadow-sm">
+                        <span class="text-sm font-medium text-plum-900">AP Physics</span>
+                        <span class="font-mono text-xs font-semibold px-2.5 py-1 rounded-lg bg-pink-100/90 text-rose-700 border border-rose-200/70">
+                                Score: 4
+                            </span>
+                    </div>
+                    <div class="flex items-center justify-between p-3.5 rounded-xl bg-white border border-pink-100 shadow-sm">
+                        <span class="text-sm font-medium text-plum-900">AP Computer Science</span>
+                        <span class="font-mono text-xs font-semibold px-2.5 py-1 rounded-lg bg-pink-100/90 text-rose-700 border border-rose-200/70">
+                                Score: 3
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         02. EXPERIENCE SECTION (#experience)
+         ===================================================== -->
+    <section id="experience" class="py-16 sm:py-20 scroll-mt-20 reveal">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
-                <div class="flex justify-between items-baseline">
-                    <h3 class="font-semibold text-gray-800 text-base">macOS PDF Converter Desktop App</h3>
-                    <span class="text-xs text-gray-500 font-medium bg-blue-50 text-blue-600 px-2.5 py-1 rounded-full">Java</span>
-                </div>
-                <p class="text-sm text-gray-700 mt-1">
-                    Engineered a native macOS application designed to streamline document format conversions locally with a clean, user-friendly interface.
-                </p>
+                <p class="font-mono text-xs sm:text-sm text-pink-600 font-medium mb-1">02. EXPERIENCE</p>
+                <h2 class="text-2xl sm:text-3xl font-bold text-plum-950 tracking-tight">
+                    Involvement &amp; Leadership
+                </h2>
             </div>
-            <div>
-                <div class="flex justify-between items-baseline">
-                    <h3 class="font-semibold text-gray-800 text-base">Personal Portfolio & Admissions Hub</h3>
-                    <span class="text-xs text-gray-500 font-medium bg-blue-50 text-blue-600 px-2.5 py-1 rounded-full">HTML / Tailwind / GitHub Pages</span>
+
+            <!-- Interactive Category Filter Pills -->
+            <div class="flex flex-wrap gap-2" role="tablist" aria-label="Filter experience by category">
+                <button type="button" data-filter="all"
+                        class="exp-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-md shadow-pink-500/20">
+                    All
+                </button>
+                <button type="button" data-filter="leadership"
+                        class="exp-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all bg-white text-plum-700 border border-rose-200 hover:border-pink-400 hover:text-pink-600">
+                    Leadership
+                </button>
+                <button type="button" data-filter="stem"
+                        class="exp-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all bg-white text-plum-700 border border-rose-200 hover:border-pink-400 hover:text-pink-600">
+                    STEM
+                </button>
+                <button type="button" data-filter="community"
+                        class="exp-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-mono font-medium transition-all bg-white text-plum-700 border border-rose-200 hover:border-pink-400 hover:text-pink-600">
+                    Community
+                </button>
+            </div>
+        </div>
+
+        <!-- Clean Vertical Pink Timeline -->
+        <div class="relative pl-6 sm:pl-8 border-l-2 border-pink-200 space-y-6">
+
+            <!-- Timeline Item 1: Taekwondo -->
+            <article data-category="leadership"
+                     class="exp-item group relative p-5 sm:p-6 rounded-2xl bg-white/95 border border-pink-100 hover:border-rose-300 shadow-sm hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300 hover:-translate-y-0.5">
+                <span class="absolute -left-[33px] sm:-left-[41px] top-7 w-3.5 h-3.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 border-2 border-white timeline-dot-glow group-hover:scale-125 transition-transform"></span>
+
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-plum-950 group-hover:text-rose-600 transition-colors">
+                            Taekwondo — 2nd Degree Black Belt
+                        </h3>
+                        <p class="text-sm text-plum-500 font-mono mt-0.5">
+                            Martial Arts &amp; Athletics
+                        </p>
+                    </div>
+                    <span class="self-start inline-flex items-center px-3 py-1 rounded-full text-xs font-mono bg-pink-50 text-rose-700 border border-rose-200/80">
+                            Leadership / Athletics
+                        </span>
                 </div>
-                <p class="text-sm text-gray-700 mt-1">
-                    Designed and deployed a responsive, lightning-fast single-page portfolio hosted on GitHub Pages to showcase academic background and technical milestones clearly.
+                <p class="mt-3 text-sm sm:text-base text-plum-700 leading-relaxed">
+                    Demonstrated long-term discipline, focus, and athletic leadership.
                 </p>
+
+                <!-- Responsive 2-Column Taekwondo Photo Gallery with Lightbox & Graceful Placeholders -->
+                <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Photo 1 -->
+                    <button type="button"
+                            data-src="images/taekwondo-1.png"
+                            data-alt="Taekwondo 2nd Degree Black Belt"
+                            data-caption="2nd Degree Black Belt"
+                            data-label="Add Photo 1"
+                            data-loaded="false"
+                            class="tkd-photo-card group/photo relative w-full text-left rounded-2xl overflow-hidden border border-pink-200/90 hover:border-rose-400 bg-gradient-to-br from-pink-50 via-white to-rose-50 shadow-sm hover:shadow-md hover:shadow-pink-500/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                        <div class="relative aspect-[4/3] w-full overflow-hidden">
+                            <!-- Actual Photo (automatically shown once images/taekwondo-1.png is uploaded) -->
+                            <img src="images/taekwondo-1.png"
+                                 alt="Taekwondo 2nd Degree Black Belt"
+                                 loading="lazy"
+                                 onload="this.closest('.tkd-photo-card').dataset.loaded='true';"
+                                 onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden'); this.closest('.tkd-photo-card').dataset.loaded='false';"
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover/photo:scale-105" />
+
+                            <!-- Graceful Pink/Rose Placeholder Fallback -->
+                            <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-5 text-center bg-gradient-to-br from-pink-50 via-rose-50/70 to-pink-100/60">
+                                <div class="w-12 h-12 rounded-2xl bg-white/90 border border-rose-200/80 shadow-sm flex items-center justify-center text-rose-500 mb-3 group-hover/photo:scale-105 transition-transform">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-sm font-semibold text-plum-950">Add Photo 1</span>
+                                <span class="mt-1.5 px-2.5 py-0.5 rounded-lg bg-white/90 border border-pink-200 font-mono text-[11px] text-rose-600">
+                                        images/taekwondo-1.png
+                                    </span>
+                            </div>
+
+                            <!-- Hover Zoom Hint Badge -->
+                            <span class="absolute top-3 right-3 p-1.5 rounded-lg bg-white/85 backdrop-blur-sm border border-pink-100 text-rose-500 opacity-0 group-hover/photo:opacity-100 transition-opacity shadow-sm" aria-hidden="true">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path>
+                                    </svg>
+                                </span>
+                        </div>
+                        <div class="px-4 py-2.5 bg-white/95 border-t border-pink-100 flex items-center justify-between">
+                            <span class="text-xs sm:text-sm font-medium text-plum-900">2nd Degree Black Belt</span>
+                            <span class="font-mono text-[11px] text-pink-500">View &rarr;</span>
+                        </div>
+                    </button>
+
+                    <!-- Photo 2 -->
+                    <button type="button"
+                            data-src="images/taekwondo-2.png"
+                            data-alt="Taekwondo Training & Sparring"
+                            data-caption="Training & Leadership"
+                            data-label="Add Photo 2"
+                            data-loaded="false"
+                            class="tkd-photo-card group/photo relative w-full text-left rounded-2xl overflow-hidden border border-pink-200/90 hover:border-rose-400 bg-gradient-to-br from-pink-50 via-white to-rose-50 shadow-sm hover:shadow-md hover:shadow-pink-500/15 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-pink-400">
+                        <div class="relative aspect-[4/3] w-full overflow-hidden">
+                            <!-- Actual Photo (automatically shown once images/taekwondo-2.png is uploaded) -->
+                            <img src="images/taekwondo-2.png"
+                                 alt="Taekwondo Training & Sparring"
+                                 loading="lazy"
+                                 onload="this.closest('.tkd-photo-card').dataset.loaded='true';"
+                                 onerror="this.classList.add('hidden'); this.nextElementSibling.classList.remove('hidden'); this.closest('.tkd-photo-card').dataset.loaded='false';"
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover/photo:scale-105" />
+
+                            <!-- Graceful Pink/Rose Placeholder Fallback -->
+                            <div class="hidden absolute inset-0 flex flex-col items-center justify-center p-5 text-center bg-gradient-to-br from-rose-50 via-pink-50/70 to-rose-100/60">
+                                <div class="w-12 h-12 rounded-2xl bg-white/90 border border-rose-200/80 shadow-sm flex items-center justify-center text-pink-500 mb-3 group-hover/photo:scale-105 transition-transform">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                                <span class="text-sm font-semibold text-plum-950">Add Photo 2</span>
+                                <span class="mt-1.5 px-2.5 py-0.5 rounded-lg bg-white/90 border border-pink-200 font-mono text-[11px] text-rose-600">
+                                        images/taekwondo-2.png
+                                    </span>
+                            </div>
+
+                            <!-- Hover Zoom Hint Badge -->
+                            <span class="absolute top-3 right-3 p-1.5 rounded-lg bg-white/85 backdrop-blur-sm border border-pink-100 text-rose-500 opacity-0 group-hover/photo:opacity-100 transition-opacity shadow-sm" aria-hidden="true">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path>
+                                    </svg>
+                                </span>
+                        </div>
+                        <div class="px-4 py-2.5 bg-white/95 border-t border-pink-100 flex items-center justify-between">
+                            <span class="text-xs sm:text-sm font-medium text-plum-900">Training &amp; Leadership</span>
+                            <span class="font-mono text-[11px] text-pink-500">View &rarr;</span>
+                        </div>
+                    </button>
+                </div>
+            </article>
+
+            <!-- Timeline Item 2: Computer Science Club -->
+            <article data-category="stem"
+                     class="exp-item group relative p-5 sm:p-6 rounded-2xl bg-white/95 border border-pink-100 hover:border-rose-300 shadow-sm hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300 hover:-translate-y-0.5">
+                <span class="absolute -left-[33px] sm:-left-[41px] top-7 w-3.5 h-3.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 border-2 border-white timeline-dot-glow group-hover:scale-125 transition-transform"></span>
+
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-plum-950 group-hover:text-rose-600 transition-colors">
+                            Computer Science Club — Member
+                        </h3>
+                        <p class="text-sm text-plum-500 font-mono mt-0.5">
+                            South Brunswick High School
+                        </p>
+                    </div>
+                    <span class="self-start inline-flex items-center px-3 py-1 rounded-full text-xs font-mono bg-pink-50 text-pink-700 border border-pink-200/80">
+                            STEM / Technology
+                        </span>
+                </div>
+                <p class="mt-3 text-sm sm:text-base text-plum-700 leading-relaxed">
+                    Collaborated on coding challenges, software projects, and problem-solving workshops.
+                </p>
+            </article>
+
+            <!-- Timeline Item 3: X-STEAM Club -->
+            <article data-category="stem"
+                     class="exp-item group relative p-5 sm:p-6 rounded-2xl bg-white/95 border border-pink-100 hover:border-rose-300 shadow-sm hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300 hover:-translate-y-0.5">
+                <span class="absolute -left-[33px] sm:-left-[41px] top-7 w-3.5 h-3.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 border-2 border-white timeline-dot-glow group-hover:scale-125 transition-transform"></span>
+
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-plum-950 group-hover:text-rose-600 transition-colors">
+                            X-STEAM Club — Member
+                        </h3>
+                        <p class="text-sm text-plum-500 font-mono mt-0.5">
+                            South Brunswick High School
+                        </p>
+                    </div>
+                    <span class="self-start inline-flex items-center px-3 py-1 rounded-full text-xs font-mono bg-fuchsia-50 text-fuchsia-700 border border-fuchsia-200/80">
+                            STEAM / Innovation
+                        </span>
+                </div>
+                <p class="mt-3 text-sm sm:text-base text-plum-700 leading-relaxed">
+                    Participated in interdisciplinary projects blending science, technology, engineering, arts, and mathematics.
+                </p>
+            </article>
+
+            <!-- Timeline Item 4: Helping Hand Club -->
+            <article data-category="community"
+                     class="exp-item group relative p-5 sm:p-6 rounded-2xl bg-white/95 border border-pink-100 hover:border-rose-300 shadow-sm hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300 hover:-translate-y-0.5">
+                <span class="absolute -left-[33px] sm:-left-[41px] top-7 w-3.5 h-3.5 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 border-2 border-white timeline-dot-glow group-hover:scale-125 transition-transform"></span>
+
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-2 sm:gap-4">
+                    <div>
+                        <h3 class="text-lg font-semibold text-plum-950 group-hover:text-rose-600 transition-colors">
+                            Helping Hand Club — Member
+                        </h3>
+                        <p class="text-sm text-plum-500 font-mono mt-0.5">
+                            South Brunswick High School
+                        </p>
+                    </div>
+                    <span class="self-start inline-flex items-center px-3 py-1 rounded-full text-xs font-mono bg-rose-50 text-rose-700 border border-rose-200/80">
+                            Community Service
+                        </span>
+                </div>
+                <p class="mt-3 text-sm sm:text-base text-plum-700 leading-relaxed">
+                    Contributed to community service initiatives, fundraising drives, and local volunteer outreach.
+                </p>
+            </article>
+
+        </div>
+    </section>
+
+    <!-- =====================================================
+         03. PROJECTS SECTION (#projects)
+         ===================================================== -->
+    <section id="projects" class="py-16 sm:py-20 scroll-mt-20 reveal">
+        <div class="mb-10">
+            <p class="font-mono text-xs sm:text-sm text-pink-600 font-medium mb-1">03. PROJECTS</p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-plum-950 tracking-tight">
+                Things I've Built
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Project Card 1: macOS PDF Converter -->
+            <article class="group relative flex flex-col justify-between rounded-2xl overflow-hidden bg-white/95 border border-pink-100 hover:border-rose-300 shadow-sm hover:shadow-xl hover:shadow-pink-500/15 transition-all duration-300 hover:-translate-y-1">
+                <!-- Top Pink-to-Rose Gradient Accent Bar -->
+                <div class="h-1.5 w-full bg-gradient-to-r from-pink-500 via-rose-400 to-pink-400"></div>
+
+                <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-11 h-11 rounded-xl bg-pink-50 border border-pink-200/80 flex items-center justify-center text-rose-500">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <a href="https://github.com/nandita1-k" target="_blank" rel="noopener noreferrer" aria-label="View macOS PDF Converter on GitHub"
+                               class="inline-flex items-center gap-1.5 text-xs font-mono text-plum-500 hover:text-rose-600 transition-colors p-2 -mr-2 rounded-lg">
+                                <span>GitHub</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-plum-950 group-hover:text-rose-600 transition-colors">
+                            macOS PDF Converter Desktop App
+                        </h3>
+                        <p class="mt-3 text-sm sm:text-base text-plum-700 leading-relaxed">
+                            Engineered a native macOS application designed to streamline document format conversions locally with a clean, user-friendly interface.
+                        </p>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-pink-100 flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-lg text-xs font-mono bg-pink-50 text-rose-700 border border-rose-200/70">
+                                Java
+                            </span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project Card 2: Personal Portfolio -->
+            <article class="group relative flex flex-col justify-between rounded-2xl overflow-hidden bg-white/95 border border-pink-100 hover:border-rose-300 shadow-sm hover:shadow-xl hover:shadow-pink-500/15 transition-all duration-300 hover:-translate-y-1">
+                <!-- Top Pink-to-Rose Gradient Accent Bar -->
+                <div class="h-1.5 w-full bg-gradient-to-r from-rose-500 via-pink-500 to-fuchsia-400"></div>
+
+                <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-5">
+                            <div class="w-11 h-11 rounded-xl bg-rose-50 border border-rose-200/80 flex items-center justify-center text-pink-600">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                                </svg>
+                            </div>
+                            <a href="https://github.com/nandita1-k" target="_blank" rel="noopener noreferrer" aria-label="View Personal Portfolio on GitHub"
+                               class="inline-flex items-center gap-1.5 text-xs font-mono text-plum-500 hover:text-rose-600 transition-colors p-2 -mr-2 rounded-lg">
+                                <span>GitHub</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <h3 class="text-xl font-bold text-plum-950 group-hover:text-rose-600 transition-colors">
+                            Personal Portfolio &amp; Admissions Hub
+                        </h3>
+                        <p class="mt-3 text-sm sm:text-base text-plum-700 leading-relaxed">
+                            Designed and deployed a responsive, lightning-fast single-page portfolio hosted on GitHub Pages to showcase academic background and technical milestones clearly.
+                        </p>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-pink-100 flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-lg text-xs font-mono bg-pink-50 text-rose-700 border border-rose-200/70">
+                                HTML / Tailwind / GitHub Pages
+                            </span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         04. TECHNICAL SKILLS SECTION (#skills)
+         ===================================================== -->
+    <section id="skills" class="py-16 sm:py-20 scroll-mt-20 reveal">
+        <div class="mb-10">
+            <p class="font-mono text-xs sm:text-sm text-pink-600 font-medium mb-1">04. TECHNICAL SKILLS</p>
+            <h2 class="text-2xl sm:text-3xl font-bold text-plum-950 tracking-tight">
+                Languages &amp; Tools
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Category 1: Programming Languages -->
+            <div class="p-6 sm:p-7 rounded-2xl bg-white/95 border border-pink-100 hover:border-rose-300 shadow-sm hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300">
+                <div class="flex items-center gap-3 mb-5">
+                        <span class="w-10 h-10 rounded-xl bg-pink-50 border border-pink-200/80 flex items-center justify-center text-pink-600">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </span>
+                    <h3 class="text-lg font-semibold text-plum-950">Programming Languages</h3>
+                </div>
+                <div class="flex flex-wrap gap-2.5">
+                    <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-mono bg-pink-50/90 text-plum-900 border border-pink-100 hover:border-rose-300 transition-colors">Java</span>
+                    <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-mono bg-pink-50/90 text-plum-900 border border-pink-100 hover:border-rose-300 transition-colors">Python</span>
+                    <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-mono bg-pink-50/90 text-plum-900 border border-pink-100 hover:border-rose-300 transition-colors">JavaScript</span>
+                    <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-mono bg-pink-50/90 text-plum-900 border border-pink-100 hover:border-rose-300 transition-colors">HTML/CSS</span>
+                </div>
+            </div>
+
+            <!-- Category 2: Tools & Frameworks -->
+            <div class="p-6 sm:p-7 rounded-2xl bg-white/95 border border-pink-100 hover:border-rose-300 shadow-sm hover:shadow-lg hover:shadow-pink-500/10 transition-all duration-300">
+                <div class="flex items-center gap-3 mb-5">
+                        <span class="w-10 h-10 rounded-xl bg-rose-50 border border-rose-200/80 flex items-center justify-center text-rose-500">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path>
+                            </svg>
+                        </span>
+                    <h3 class="text-lg font-semibold text-plum-950">Tools &amp; Frameworks</h3>
+                </div>
+                <div class="flex flex-wrap gap-2.5">
+                    <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-mono bg-rose-50/90 text-plum-900 border border-rose-100 hover:border-rose-300 transition-colors">Git</span>
+                    <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-mono bg-rose-50/90 text-plum-900 border border-rose-100 hover:border-rose-300 transition-colors">GitHub</span>
+                    <span class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-mono bg-rose-50/90 text-plum-900 border border-rose-100 hover:border-rose-300 transition-colors">Android Studio</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Extracurriculars & Honors Section -->
-    <section>
-        <h2 class="text-xl font-bold text-gray-900 uppercase tracking-wider border-b-2 border-blue-500 pb-1 mb-4">Extracurriculars</h2>
-        <div class="space-y-4 text-sm text-gray-700">
-            <div class="flex justify-between items-baseline bg-gray-50 p-4 rounded-xl border border-gray-100">
-                <div>
-                    <p class="font-semibold text-gray-900">Taekwondo — 2nd Degree Black Belt</p>
-                    <p class="text-gray-600 text-xs mt-0.5">Demonstrated long-term discipline, focus, and athletic leadership.</p>
-                </div>
-                <span class="text-xs text-gray-500 font-medium">Leadership / Athletics</span>
+    <!-- =====================================================
+         05. CONTACT SECTION (#contact)
+         ===================================================== -->
+    <section id="contact" class="py-16 sm:py-24 scroll-mt-20 reveal">
+        <div class="relative overflow-hidden rounded-3xl p-8 sm:p-12 text-center bg-gradient-to-br from-white via-pink-50/60 to-rose-50/80 border border-rose-200/80 shadow-lg shadow-pink-500/10">
+            <p class="font-mono text-xs sm:text-sm text-pink-600 font-medium mb-2">05. CONTACT</p>
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-plum-950 tracking-tight">
+                Let's Connect
+            </h2>
+            <p class="mt-4 text-sm sm:text-base text-plum-700 max-w-xl mx-auto leading-relaxed">
+                I'm always open to discussing computer science, research opportunities, collaborative projects, or software engineering. Reach out anytime!
+            </p>
+
+            <!-- Location Badge -->
+            <div class="mt-5 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-rose-200/80 text-xs font-mono text-rose-700 shadow-sm">
+                <svg class="w-3.5 h-3.5 text-pink-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <span>South Brunswick, NJ</span>
             </div>
 
-            <div class="flex justify-between items-baseline bg-gray-50 p-4 rounded-xl border border-gray-100">
-                <div>
-                    <p class="font-semibold text-gray-900">Computer Science Club — Member <span class="font-normal text-gray-500">| South Brunswick High School</span></p>
-                    <p class="text-gray-600 text-xs mt-0.5">Collaborated on coding challenges, software projects, and problem-solving workshops.</p>
-                </div>
-                <span class="text-xs text-gray-500 font-medium">STEM / Technology</span>
-            </div>
+            <!-- Action Buttons: Email, Copy Email, GitHub -->
+            <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+                <!-- Email Button -->
+                <a href="mailto:nanditakamalakannan@gmail.com"
+                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-medium text-sm shadow-md shadow-pink-500/25 transition-all hover:-translate-y-0.5">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    Email
+                </a>
 
-            <div class="flex justify-between items-baseline bg-gray-50 p-4 rounded-xl border border-gray-100">
-                <div>
-                    <p class="font-semibold text-gray-900">X-STEAM Club — Member <span class="font-normal text-gray-500">| South Brunswick High School</span></p>
-                    <p class="text-gray-600 text-xs mt-0.5">Participated in interdisciplinary projects blending science, technology, engineering, arts, and mathematics.</p>
-                </div>
-                <span class="text-xs text-gray-500 font-medium">STEAM / Innovation</span>
-            </div>
+                <!-- One-Click Copy Email Button -->
+                <button type="button" id="copy-email-btn"
+                        class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-pink-50 text-plum-900 font-medium text-sm border border-rose-200 shadow-sm transition-all hover:-translate-y-0.5">
+                    <svg class="w-4 h-4 text-pink-500 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                    </svg>
+                    <span>Copy Email</span>
+                </button>
 
-            <div class="flex justify-between items-baseline bg-gray-50 p-4 rounded-xl border border-gray-100">
-                <div>
-                    <p class="font-semibold text-gray-900">Helping Hand Club — Member <span class="font-normal text-gray-500">| South Brunswick High School</span></p>
-                    <p class="text-gray-600 text-xs mt-0.5">Contributed to community service initiatives, fundraising drives, and local volunteer outreach.</p>
-                </div>
-                <span class="text-xs text-gray-500 font-medium">Community Service</span>
-            </div>
-        </div>
-    </section>
-
-    <section>
-        <h2 class="text-xl font-bold text-gray-900 uppercase tracking-wider border-b-2 border-blue-500 pb-1 mb-4">Academic</h2>
-        <div class="space-y-4 text-sm text-gray-700">
-            <div class="flex justify-between items-baseline bg-gray-50 p-4 rounded-xl border border-gray-100">
-                <div>
-                    <p class="font-semibold text-gray-900">STEM Academic Record</p>
-                    <p class="text-gray-600 text-xs mt-0.5">Rigorous advanced placement science and math courses.</p>
-                    <p class="text-gray-600 text-xs mt-0.5">AP Physics AP score 4</p>
-                    <p class="text-gray-600 text-xs mt-0.5">AP Computer science AP score 3</p>
-                </div>
-                <span class="text-xs text-gray-500 font-medium">Academics</span>
+                <!-- GitHub Button -->
+                <a href="https://github.com/nandita1-k" target="_blank" rel="noopener noreferrer"
+                   class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white hover:bg-pink-50 text-plum-900 font-medium text-sm border border-rose-200 shadow-sm transition-all hover:-translate-y-0.5">
+                    <svg class="w-4 h-4 text-plum-900" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path>
+                    </svg>
+                    GitHub
+                </a>
             </div>
         </div>
     </section>
 
 </main>
 
+<!-- =========================================================
+     CLEAN FOOTER
+     ========================================================= -->
+<footer class="border-t border-pink-100 py-8 text-center bg-white/50">
+    <p class="text-xs sm:text-sm font-mono text-plum-500 px-4">
+        &copy; 2026 Nandita Kamalakannan. Built with passion &amp; deployed on GitHub Pages.
+    </p>
+</footer>
+
+<!-- =========================================================
+     TAEKWONDO PHOTO LIGHTBOX MODAL
+     ========================================================= -->
+<div id="photo-lightbox" role="dialog" aria-modal="true" aria-labelledby="lightbox-caption"
+     class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-plum-950/75 backdrop-blur-sm">
+    <div class="relative w-full max-w-3xl rounded-3xl overflow-hidden bg-white border border-rose-200 shadow-2xl shadow-pink-500/20">
+        <!-- Close Button -->
+        <button id="lightbox-close-btn" type="button" aria-label="Close photo preview"
+                class="absolute top-3.5 right-3.5 z-10 p-2 rounded-xl bg-white/90 hover:bg-pink-50 text-plum-900 hover:text-rose-600 border border-pink-200 shadow-sm transition-colors">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <!-- Full-Size Photo Container -->
+        <div class="bg-pink-50/60 flex items-center justify-center min-h-[260px] sm:min-h-[380px] max-h-[75vh] overflow-hidden">
+            <img id="lightbox-img" src="" alt="" class="hidden max-h-[75vh] w-full object-contain" />
+
+            <!-- Placeholder State Inside Lightbox (shown if photo file isn't uploaded yet) -->
+            <div id="lightbox-placeholder" class="hidden flex-col items-center justify-center p-10 text-center">
+                <div class="w-16 h-16 rounded-2xl bg-white border border-rose-200 shadow-sm flex items-center justify-center text-rose-500 mb-4">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </div>
+                <p id="lightbox-placeholder-title" class="text-lg font-bold text-plum-950">Photo Ready to Upload</p>
+                <p class="mt-2 text-sm text-plum-700 max-w-md">
+                    Upload your Taekwondo photo to your GitHub repository at the path below and it will appear here automatically:
+                </p>
+                <span id="lightbox-placeholder-path" class="mt-3 px-3.5 py-1.5 rounded-xl bg-white border border-pink-200 font-mono text-xs text-rose-600 shadow-sm"></span>
+            </div>
+        </div>
+
+        <!-- Caption Bar -->
+        <div class="px-6 py-4 bg-white border-t border-pink-100 flex items-center justify-between gap-4">
+            <p id="lightbox-caption" class="text-sm sm:text-base font-semibold text-plum-950"></p>
+            <span class="font-mono text-xs text-pink-500">Taekwondo</span>
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     PINK TOAST NOTIFICATION FOR COPY-TO-CLIPBOARD
+     ========================================================= -->
+<div id="toast" role="status" aria-live="polite"
+     class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 text-white text-xs sm:text-sm font-mono shadow-xl shadow-pink-500/30 flex items-center gap-2 opacity-0 pointer-events-none translate-y-3 transition-all duration-300">
+    <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+    </svg>
+    <span>Email copied to clipboard!</span>
+</div>
+
+<!-- =========================================================
+     INTERACTIVE JAVASCRIPT
+     Mobile Menu, Active Nav Highlight, Experience Filters,
+     Scroll Reveal, and Copy Email Toast
+     ========================================================= -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // ---------------------------------------------------------
+        // 1. Mobile Navigation Drawer Toggle
+        // ---------------------------------------------------------
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOpenIcon = document.getElementById('menu-open-icon');
+        const menuCloseIcon = document.getElementById('menu-close-icon');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        function toggleMobileMenu(forceClose = false) {
+            const isHidden = mobileMenu.classList.contains('hidden');
+            const shouldOpen = forceClose ? false : isHidden;
+
+            mobileMenu.classList.toggle('hidden', !shouldOpen);
+            menuOpenIcon.classList.toggle('hidden', shouldOpen);
+            menuCloseIcon.classList.toggle('hidden', !shouldOpen);
+            mobileMenuBtn.setAttribute('aria-expanded', String(shouldOpen));
+        }
+
+        mobileMenuBtn.addEventListener('click', () => toggleMobileMenu());
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => toggleMobileMenu(true));
+        });
+
+        // ---------------------------------------------------------
+        // 2. Active Navbar Link Highlighting on Scroll (Pink/Rose)
+        // ---------------------------------------------------------
+        const navLinks = document.querySelectorAll('.nav-link');
+        const trackedSections = document.querySelectorAll('section[id]');
+
+        function setActiveNavLink(sectionId) {
+            navLinks.forEach(link => {
+                const isMatch = link.getAttribute('data-section') === sectionId;
+                link.classList.toggle('text-rose-600', isMatch);
+                link.classList.toggle('bg-pink-100/80', isMatch);
+                link.classList.toggle('font-semibold', isMatch);
+                link.classList.toggle('text-plum-700', !isMatch);
+            });
+        }
+
+        if ('IntersectionObserver' in window) {
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setActiveNavLink(entry.target.id);
+                    }
+                });
+            }, {
+                rootMargin: '-25% 0px -55% 0px',
+                threshold: 0
+            });
+
+            trackedSections.forEach(section => navObserver.observe(section));
+        }
+
+        // ---------------------------------------------------------
+        // 3. Interactive Experience Category Filters
+        // ---------------------------------------------------------
+        const filterBtns = document.querySelectorAll('.exp-filter-btn');
+        const expItems = document.querySelectorAll('.exp-item');
+
+        const activeFilterClasses = [
+            'bg-gradient-to-r', 'from-pink-500', 'to-rose-500',
+            'text-white', 'shadow-md', 'shadow-pink-500/20'
+        ];
+        const inactiveFilterClasses = [
+            'bg-white', 'text-plum-700', 'border', 'border-rose-200',
+            'hover:border-pink-400', 'hover:text-pink-600'
+        ];
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const selected = btn.getAttribute('data-filter');
+
+                filterBtns.forEach(b => {
+                    b.classList.remove(...activeFilterClasses);
+                    b.classList.add(...inactiveFilterClasses);
+                });
+                btn.classList.remove(...inactiveFilterClasses);
+                btn.classList.add(...activeFilterClasses);
+
+                expItems.forEach(item => {
+                    const category = item.getAttribute('data-category');
+                    item.classList.toggle('hidden', selected !== 'all' && category !== selected);
+                });
+            });
+        });
+
+        // ---------------------------------------------------------
+        // 4. Scroll-Reveal Animations via IntersectionObserver
+        // ---------------------------------------------------------
+        const revealElements = document.querySelectorAll('.reveal');
+        if ('IntersectionObserver' in window) {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+        } else {
+            revealElements.forEach(el => el.classList.add('is-visible'));
+        }
+
+        // ---------------------------------------------------------
+        // 5. One-Click Copy Email to Clipboard + Pink Toast
+        // ---------------------------------------------------------
+        const copyEmailBtn = document.getElementById('copy-email-btn');
+        const toast = document.getElementById('toast');
+        let toastTimer = null;
+
+        function showToast() {
+            toast.classList.remove('opacity-0', 'translate-y-3', 'pointer-events-none');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            if (toastTimer) clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-3', 'pointer-events-none');
+            }, 2400);
+        }
+
+        if (copyEmailBtn) {
+            copyEmailBtn.addEventListener('click', () => {
+                const email = 'nanditakamalakannan@gmail.com';
+                try {
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = email;
+                    tempInput.setAttribute('readonly', '');
+                    tempInput.style.position = 'fixed';
+                    tempInput.style.opacity = '0';
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(tempInput);
+                    showToast();
+                } catch (err) {
+                    window.location.href = `mailto:${email}`;
+                }
+            });
+        }
+
+        // ---------------------------------------------------------
+        // 6. Taekwondo Photo Gallery Lightbox Modal
+        // ---------------------------------------------------------
+        const lightbox = document.getElementById('photo-lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxPlaceholder = document.getElementById('lightbox-placeholder');
+        const lightboxPlaceholderTitle = document.getElementById('lightbox-placeholder-title');
+        const lightboxPlaceholderPath = document.getElementById('lightbox-placeholder-path');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const lightboxCloseBtn = document.getElementById('lightbox-close-btn');
+        const photoCards = document.querySelectorAll('.tkd-photo-card');
+
+        function openLightbox(card) {
+            const src = card.getAttribute('data-src');
+            const alt = card.getAttribute('data-alt');
+            const caption = card.getAttribute('data-caption');
+            const label = card.getAttribute('data-label');
+            const isLoaded = card.dataset.loaded === 'true';
+
+            lightboxCaption.textContent = caption;
+
+            if (isLoaded) {
+                lightboxImg.src = src;
+                lightboxImg.alt = alt;
+                lightboxImg.classList.remove('hidden');
+                lightboxPlaceholder.classList.add('hidden');
+                lightboxPlaceholder.classList.remove('flex');
+            } else {
+                lightboxImg.src = '';
+                lightboxImg.classList.add('hidden');
+                lightboxPlaceholderTitle.textContent = label;
+                lightboxPlaceholderPath.textContent = src;
+                lightboxPlaceholder.classList.remove('hidden');
+                lightboxPlaceholder.classList.add('flex');
+            }
+
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            document.body.classList.add('overflow-hidden');
+        }
+
+        function closeLightbox() {
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+            document.body.classList.remove('overflow-hidden');
+        }
+
+        photoCards.forEach(card => {
+            card.addEventListener('click', () => openLightbox(card));
+        });
+
+        if (lightboxCloseBtn) {
+            lightboxCloseBtn.addEventListener('click', closeLightbox);
+        }
+
+        // Close lightbox when clicking outside the modal card
+        if (lightbox) {
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+        }
+
+        // Close lightbox on Escape key press
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && lightbox && !lightbox.classList.contains('hidden')) {
+                closeLightbox();
+            }
+        });
+    });
+</script>
 </body>
 </html>
